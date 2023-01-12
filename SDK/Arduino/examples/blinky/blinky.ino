@@ -1,7 +1,6 @@
 #include "blinky.h"
 #include <Kenshi.h>
-#include <WiFi.h>
-#include <WiFiClientSecure.h>
+#include <WiFiNINA.h>
 
 const char *ssid = WIFI_SSID;
 const char *password = WIFI_PASSWORD;
@@ -10,13 +9,15 @@ const char *password = WIFI_PASSWORD;
 uint lastSyncedBlock;
 uint lastProcessedBlock;
 
+// Secure Wifi Client
+WiFiSSLClient wifiSecure;
+
 // Create an instance of Kenshi Sync Task and MQL
 SyncTask task(KENSHI_TASK_ID);
 MQL mql(KENSHI_API_KEY, KENSHI_API_OWNER, FantomTestnet);
 
 // Connect to WiFi
 void initWiFi() {
-  WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
   Serial.print("Connecting to WiFi ..");
   while (WiFi.status() != WL_CONNECTED) {
@@ -48,14 +49,15 @@ void setup() {
   Serial.begin(115200);
   initPins();
   initWiFi();
-  lastProcessedBlock = task.getLastSyncedBlock();
+  // Process only future events!
+  lastProcessedBlock = task.getLastSyncedBlock(wifiSecure);
 }
 
 // Main loop
 void loop() {
 
   // Get last synced block and init a query object
-  lastSyncedBlock = task.getLastSyncedBlock();
+  lastSyncedBlock = task.getLastSyncedBlock(wifiSecure);
   MongoQuery query = mql.initQuery();
 
   // Populate the query fields: We are looking for a
@@ -67,7 +69,7 @@ void loop() {
   query["block.number"]["$lte"] = lastSyncedBlock;
 
   // Run the query and get the results
-  MongoDocuments entries = mql.runQuery(query);
+  MongoDocuments entries = mql.runQuery(wifiSecure, query);
 
   uint length = entries.size();
   uint maxBlock = lastProcessedBlock;

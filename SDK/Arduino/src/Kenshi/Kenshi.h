@@ -6,8 +6,8 @@
 #ifndef Kenshi_h
 #define Kenshi_h
 #include "Arduino.h"
+#include "Client.h"
 #include <ArduinoJson.h>
-#include <WiFiClientSecure.h>
 
 using MongoQuery = DynamicJsonDocument;
 using MongoDocument = DynamicJsonDocument;
@@ -36,6 +36,8 @@ public:
   MQL(char *apiKey, char *owner, Blockchain blockchain);
   MongoQuery initQuery();
   MongoQuery initQuery(int size);
+  String getPayload(MongoQuery query);
+  MongoDocuments runQuery(Client &client, MongoQuery query);
   MongoDocuments runQuery(MongoQuery query);
 };
 
@@ -46,6 +48,9 @@ private:
 public:
   SyncTask(char *taskId);
   uint getLastSyncedBlock();
+  uint getLastSyncedBlock(Client &client);
 };
+
+extern char *kenshiRootCert;
 
 #endif

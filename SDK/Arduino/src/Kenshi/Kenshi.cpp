@@ -1,9 +1,17 @@
 #include "Kenshi.h"
 #include "Arduino.h"
+#include "Client.h"
 #include <ArduinoJson.h>
-#include <HTTPClient.h>
-#include <WiFiClientSecure.h>
 
+#ifdef ESP32
+#include <HTTPClient.h>
+#else
+#include <ArduinoHttpClient.h>
+#endif
+
+const char *apiDomain = "api.kenshi.io";
+const char *mqlPath = "/index/mql";
+const char *indexInfoPath = "/index/info/";
 const char *mqlEndpoint = "https://api.kenshi.io/index/mql";
 const char *indexInfoEndpoint = "https://api.kenshi.io/index/info/";
 
@@ -31,7 +39,33 @@ char *kenshiRootCert =
 
 SyncTask::SyncTask(char *taskId) { _taskId = taskId; }
 
+uint SyncTask::getLastSyncedBlock(Client &client) {
+#ifdef ESP32
+  HTTPClient http;
+
+  String endpoint = String(indexInfoEndpoint) + String(_taskId);
+  http.begin(endpoint, kenshiRootCert);
+
+  int httpResponseCode = http.GET();
+
+  DynamicJsonDocument response(256);
+  deserializeJson(response, http.getStream());
+
+  http.end();
+
+#else
+  HttpClient http(client, apiDomain, 443);
+  String path = String(indexInfoPath) + String(_taskId);
+  http.get(path);
+
+  DynamicJsonDocument response(256);
+  deserializeJson(response, http.responseBody());
+#endif
+  return response["lastSyncedBlock"].as<uint>();
+}
+
 uint SyncTask::getLastSyncedBlock() {
+#ifdef ESP32
   HTTPClient http;
 
   String endpoint = String(indexInfoEndpoint) + String(_taskId);
@@ -44,6 +78,9 @@ uint SyncTask::getLastSyncedBlock() {
 
   http.end();
   return response["lastSyncedBlock"].as<uint>();
+#else
+  return 0;
+#endif
 }
 
 MQL::MQL(char *apiKey, char *owner, Blockchain blockchain) {
@@ -82,11 +119,7 @@ String blockchainToString(Blockchain blockchain) {
 MongoQuery MQL::initQuery() { return DynamicJsonDocument(1024); }
 MongoQuery MQL::initQuery(int size) { return DynamicJsonDocument(size); }
 
-MongoDocuments MQL::runQuery(MongoQuery query) {
-  HTTPClient http;
-  http.begin(mqlEndpoint, kenshiRootCert);
-  http.addHeader("Content-Type", "application/json");
-
+String MQL::getPayload(MongoQuery query) {
   DynamicJsonDocument request(4096);
   request["owner"] = _owner;
   request["apikey"] = _apiKey;
@@ -96,10 +129,48 @@ MongoDocuments MQL::runQuery(MongoQuery query) {
   String payload;
   serializeJson(request, payload);
 
+  return payload;
+}
+
+MongoDocuments MQL::runQuery(Client &client, MongoQuery query) {
+  String payload = getPayload(query);
+
+#ifdef ESP32
+  HTTPClient http;
+  http.begin(mqlEndpoint, kenshiRootCert);
+  http.addHeader("Content-Type", "application/json");
+
+  int httpResponseCode = http.POST(payload);
+  DynamicJsonDocument response(8196);
+  deserializeJson(response, http.getStream());
+
+  http.end();
+#else
+  HttpClient http(client, apiDomain, 443);
+  http.post(mqlPath, "application/json", payload);
+
+  DynamicJsonDocument response(8196);
+  deserializeJson(response, http.responseBody());
+#endif
+
+  return response.as<JsonArray>();
+}
+
+MongoDocuments MQL::runQuery(MongoQuery query) {
+#ifdef ESP32
+  HTTPClient http;
+  http.begin(mqlEndpoint, kenshiRootCert);
+  http.addHeader("Content-Type", "application/json");
+
+  String payload = getPayload(query);
+
   int httpResponseCode = http.POST(payload);
   DynamicJsonDocument response(8196);
   deserializeJson(response, http.getStream());
 
   http.end();
   return response.as<JsonArray>();
+#else
+  return DynamicJsonDocument(0).as<JsonArray>();
+#endif
 }
