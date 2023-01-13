@@ -20,8 +20,8 @@ jobs:
         run: |
           mkdir artifacts
           mv SDK/Arduino SDK/Kenshi
-          zip -r Kenshi-IoT-SDK-Arduino-$GITHUB_REF_NAME.zip SDK/Kenshi
-          tar -czvf Kenshi-IoT-SDK-Arduino-$GITHUB_REF_NAME.zip SDK/Kenshi
+          zip -r artifacts/Kenshi-IoT-SDK-Arduino-$GITHUB_REF_NAME.zip SDK/Kenshi
+          tar -czvf artifacts/Kenshi-IoT-SDK-Arduino-$GITHUB_REF_NAME.tar.gz SDK/Kenshi
           mv SDK/Kenshi SDK/Arduino
 
       - name: Make Release Body
