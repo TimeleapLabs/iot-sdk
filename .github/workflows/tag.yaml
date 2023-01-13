@@ -19,10 +19,11 @@ jobs:
       - name: Build Arduino
         run: |
           mkdir artifacts
-          mv SDK/Arduino SDK/Kenshi
-          zip -r artifacts/Kenshi-IoT-SDK-Arduino-$GITHUB_REF_NAME.zip SDK/Kenshi
-          tar -czvf artifacts/Kenshi-IoT-SDK-Arduino-$GITHUB_REF_NAME.tar.gz SDK/Kenshi
-          mv SDK/Kenshi SDK/Arduino
+          cd SDK
+          mv Arduino Kenshi
+          zip -r artifacts/Kenshi-IoT-SDK-Arduino-$GITHUB_REF_NAME.zip Kenshi
+          tar -czvf artifacts/Kenshi-IoT-SDK-Arduino-$GITHUB_REF_NAME.tar.gz Kenshi
+          mv Kenshi Arduino
 
       - name: Make Release Body
         id: info
