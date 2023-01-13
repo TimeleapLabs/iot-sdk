@@ -21,8 +21,7 @@ jobs:
           mkdir artifacts
           cd SDK
           mv Arduino Kenshi
-          zip -r ../artifacts/Kenshi-IoT-SDK-Arduino-$GITHUB_REF_NAME.zip Kenshi
-          tar -czvf ../artifacts/Kenshi-IoT-SDK-Arduino-$GITHUB_REF_NAME.tar.gz Kenshi
+          zip -r ../artifacts/Kenshi-IoT-SDK-Arduino.zip Kenshi
           mv Kenshi Arduino
 
       - name: Make Release Body
