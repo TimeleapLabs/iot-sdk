@@ -1,0 +1,28 @@
+#######################################
+# Syntax Coloring Map For Kenshi IoT SDK
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+MongoQuery  KEYWORD1
+MongoDocument KEYWORD1
+MongoDocuments  KEYWORD1
+Blockchain  KEYWORD1
+MQL KEYWORD1
+SyncTask  KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+getLastSyncedBlock	KEYWORD2
+initQuery	KEYWORD2
+getPayload	KEYWORD2
+runQuery	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+kenshiRootCert	LITERAL1

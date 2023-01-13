@@ -1,0 +1,41 @@
+name: Tag
+
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Build Arduino
+        run: |
+          mkdir artifacts
+          mv SDK/Arduino SDK/Kenshi
+          zip -r Kenshi-IoT-SDK-Arduino-$GITHUB_REF_NAME.zip SDK/Kenshi
+          tar -czvf Kenshi-IoT-SDK-Arduino-$GITHUB_REF_NAME.zip SDK/Kenshi
+          mv SDK/Kenshi SDK/Arduino
+
+      - name: Make Release Body
+        id: info
+        run: |
+          echo "# Kenshi IoT SDK $GITHUB_REF_NAME" > release.md
+          echo "" >> release.md
+          echo Built from \#`git rev-parse --short HEAD` >> release.md
+          echo Version $GITHUB_REF_NAME >> release.md
+          echo ::set-output name=tag::release-$GITHUB_REF_NAME
+
+      - name: Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "artifacts/*"
+          bodyFile: "release.md"
+          tag: ${{ steps.info.outputs.tag }}
