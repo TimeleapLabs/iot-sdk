@@ -111,6 +111,10 @@ String blockchainToString(Blockchain blockchain) {
     return "polygon-mumbai";
   case PolygonMainnet:
     return "polygon-mainnet";
+  case AuroraTestnet:
+    return "aurora-testnet";
+  case AuroraMainnet:
+    return "aurora-mainnet";
   default:
     return "";
   }

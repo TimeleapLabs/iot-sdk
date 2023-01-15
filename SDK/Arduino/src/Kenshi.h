@@ -23,7 +23,9 @@ enum Blockchain {
   AvalancheTestnet,
   AvalancheMainnet,
   PolygonMumbai,
-  PolygonMainnet
+  PolygonMainnet,
+  AuroraTestnet,
+  AuroraMainnet
 };
 
 class MQL {
