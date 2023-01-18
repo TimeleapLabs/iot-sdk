@@ -111,7 +111,7 @@ void wifi_connect(void) {
       break;
     }
 
-    LOG_ERR("Connect request failed %d. Waiting iface be up...", ret);
+    LOG_ERR("Connect request failed %d. Waiting for iface...", ret);
     k_msleep(500);
   }
 
