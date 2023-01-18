@@ -19,10 +19,15 @@ jobs:
       - name: Build Arduino
         run: |
           mkdir artifacts
-          cd SDK
-          mv Arduino Kenshi
-          zip -r ../artifacts/Kenshi-IoT-SDK-Arduino.zip Kenshi
-          mv Kenshi Arduino
+          mv arduino Kenshi
+          zip -r artifacts/Kenshi-IoT-SDK-Arduino.zip Kenshi
+          mv Kenshi arduino
+
+      - name: Build Zephyr
+        run: |
+          mv zephyr kenshi
+          zip -r artifacts/Kenshi-IoT-SDK-Zephyr.zip kenshi
+          mv kenshi zephyr
 
       - name: Make Release Body
         id: info

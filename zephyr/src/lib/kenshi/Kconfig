@@ -1,0 +1,11 @@
+# Copyright (c) 2021, Legrand North America, LLC.
+# SPDX-License-Identifier: Apache-2.0
+
+config KENSHI
+	bool "kenshi Support"
+	help
+	  This option enables the kenshi library
+
+module = KENSHI
+module-str = kenshi
+source "subsys/logging/Kconfig.template.log_config"
