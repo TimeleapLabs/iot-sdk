@@ -101,7 +101,7 @@ void wifi_connect(void) {
 
   connected = 0;
 
-  LOG_INF("WIFI try connecting to %s...", AUTO_CONNECT_SSID);
+  LOG_INF("Trying to connect to %s...", AUTO_CONNECT_SSID);
 
   /* Let's wait few seconds for the wifi device to be on-line */
   while (nr_tries-- > 0) {
