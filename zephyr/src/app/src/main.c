@@ -23,7 +23,7 @@
 
 #include "config.h"
 
-LOG_MODULE_DECLARE(app, CONFIG_APP_LOG_LEVEL);
+LOG_MODULE_REGISTER(project, CONFIG_PROJECT_LOG_LEVEL);
 
 static int connected;
 static struct net_mgmt_event_callback wifi_shell_mgmt_cb;

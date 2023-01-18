@@ -5,7 +5,7 @@
 
 #include <kenshi/kenshi.h>
 
-LOG_MODULE_DECLARE(kenshi, CONFIG_KENSHI_LOG_LEVEL);
+LOG_MODULE_REGISTER(kenshi, CONFIG_KENSHI_LOG_LEVEL);
 
 struct zsock_addrinfo *mql_dns_resolve() {
 

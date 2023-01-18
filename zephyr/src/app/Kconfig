@@ -1,4 +1,4 @@
-module = APP
-module-str = app
+module = PROJECT
+module-str = project
 source "subsys/logging/Kconfig.template.log_config"
 source "Kconfig.zephyr"
