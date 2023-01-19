@@ -31,9 +31,16 @@ The following boards and platforms are supported by this SDK:
 
 #### ESP32 product family
 
-All boards based on the ESP32 SoC and programmable by Arduino IDE, including
-ESP32 Devkits, Adafruit HUZZAH32, SparkFun ESP32 Thing Plus, Wemos LOLIN D32,
-NodeMCU, ESPduino 32, and others.
+All boards based on the ESP32 SoC and programmable by Arduino IDE, including:
+
+- [ESP32 Devkits](https://www.espressif.com/en/products/devkits)
+- [Adafruit HUZZAH32](https://learn.adafruit.com/adafruit-huzzah32-esp32-feather)
+- [SparkFun ESP32 Thing Plus](https://www.sparkfun.com/products/15663)
+- [Wemos LOLIN D32](https://www.wemos.cc/en/latest/d32/d32.html)
+- [Seeed Studio XIAO ESP32C3](https://wiki.seeedstudio.com/XIAO_ESP32C3_Getting_Started/)
+- [DFRobot FireBeetle ESP32](<https://wiki.dfrobot.com/FireBeetle_ESP32_IOT_Microcontroller(V3.0)__Supports_Wi-Fi_&_Bluetooth__SKU__DFR0478>)
+
+and others.
 
 #### Arduino product family
 
