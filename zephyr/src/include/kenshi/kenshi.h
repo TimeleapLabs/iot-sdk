@@ -219,6 +219,14 @@ struct MQL_block_range {
                     MQL_ARGS_SERIALIZE2, MQL_ARG_SERIALIZE)                    \
   (args)
 
+#define MQL_STR_DESERIALIZE(parent, key)                                       \
+  strcpy(entry->parent.key,                                                    \
+         cJSON_GetObjectItemCaseSensitive(parent, #key)->valuestring);
+
+#define MQL_INT_DESERIALIZE(parent, key)                                       \
+  entry->parent.key =                                                          \
+      cJSON_GetObjectItemCaseSensitive(parent, #key)->valuedouble;
+
 #define MQL_ARG_DESERIALIZE(arg)                                               \
   strcpy(entry->event.args.arg,                                                \
          cJSON_GetObjectItemCaseSensitive(args, #arg)->valuestring);
@@ -288,12 +296,12 @@ struct mql_block {
 };
 
 struct mql_log {
-  char *index[9];
+  char index[9];
 };
 
 struct mql_transaction {
-  char *hash[67];
-  char *index[9];
+  char hash[67];
+  char index[9];
 };
 
 #define MQL_QUERY_INIT(mql_name, event_count, struct_args, entry_args,         \
@@ -372,6 +380,7 @@ struct mql_transaction {
     cJSON_AddItemToObject(req_doc, "query", query_doc);                        \
                                                                                \
     char *string = cJSON_PrintUnformatted(req_doc);                            \
+    cJSON_Delete(req_doc);                                                     \
     return string;                                                             \
   }                                                                            \
                                                                                \
@@ -387,16 +396,23 @@ struct mql_transaction {
       cJSON *block = cJSON_GetObjectItemCaseSensitive(item, "block");          \
       cJSON *log = cJSON_GetObjectItemCaseSensitive(item, "log");              \
       cJSON *event = cJSON_GetObjectItemCaseSensitive(item, "event");          \
-      cJSON *tx = cJSON_GetObjectItemCaseSensitive(item, "transaction");       \
+      cJSON *transaction =                                                     \
+          cJSON_GetObjectItemCaseSensitive(item, "transaction");               \
       cJSON *args = cJSON_GetObjectItemCaseSensitive(event, "args");           \
                                                                                \
-      entry->block.number =                                                    \
-          cJSON_GetObjectItemCaseSensitive(block, "number")->valuedouble;      \
-      strcpy(entry->block.hash,                                                \
-             cJSON_GetObjectItemCaseSensitive(block, "hash")->valuestring);    \
+      MQL_INT_DESERIALIZE(block, number);                                      \
+      MQL_STR_DESERIALIZE(block, hash);                                        \
+      MQL_STR_DESERIALIZE(block, address);                                     \
+      MQL_STR_DESERIALIZE(transaction, hash);                                  \
+      MQL_STR_DESERIALIZE(transaction, index);                                 \
+      MQL_STR_DESERIALIZE(log, index);                                         \
+      MQL_STR_DESERIALIZE(event, name);                                        \
+      MQL_STR_DESERIALIZE(event, signature);                                   \
                                                                                \
       deserialize_args                                                         \
     }                                                                          \
+                                                                               \
+    cJSON_Delete(parsed);                                                      \
   }                                                                            \
                                                                                \
   static void mql_callback_##mql_name(struct mql_name##_mql_entry *entries);   \
@@ -459,5 +475,6 @@ struct mql_transaction {
       LOG_ERR("Failed to send MQL data.");                                     \
     }                                                                          \
                                                                                \
+    free(query);                                                               \
     close(sock);                                                               \
   } while (0)

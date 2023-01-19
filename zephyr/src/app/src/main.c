@@ -118,8 +118,22 @@ void wifi_connect(void) {
   LOG_INF("Connection requested.");
 }
 
-MQL_INIT(kenshi_query, 24, from, to)
-MQL_CALLBACK(kenshi_query, entries) { printk("%s\n", entries[0].block.hash); }
+MQL_INIT(kenshi_query, 16, from, to, amount);
+
+MQL_CALLBACK(kenshi_query, entries) {
+  printk("------- Event --------\n");
+  printk("block.hash: %s\n", entries[0].block.hash);
+  printk("block.address: %s\n", entries[0].block.address);
+  printk("block.number: %" PRIu64 "\n", entries[0].block.number);
+  printk("transaction.hash: %s\n", entries[0].transaction.hash);
+  printk("transaction.index: %s\n", entries[0].transaction.index);
+  printk("log.index: %s\n", entries[0].log.index);
+  printk("event.name: %s\n", entries[0].event.name);
+  printk("event.signature: %s\n", entries[0].event.signature);
+  printk("event.args.to: %s\n", entries[0].event.args.to);
+  printk("event.args.from: %s\n", entries[0].event.args.from);
+  printk("event.args.amount: %s\n", entries[0].event.args.amount);
+}
 
 void main(void) {
 
