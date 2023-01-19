@@ -25,11 +25,11 @@ for Linux development boards.
 - [Blinky32](./arduino/examples/blinky32/): Blinky example for ESP32
 - [Zephyr app](./zephyr/src/app/): Zephyr sample project setup
 
-### Supported development boards
+## Supported development boards
 
 The following boards and platforms are supported by this SDK:
 
-#### ESP32 product family
+### ESP32 product family
 
 All boards based on the ESP32 SoC and programmable by Arduino IDE, including:
 
@@ -42,7 +42,7 @@ All boards based on the ESP32 SoC and programmable by Arduino IDE, including:
 
 and others.
 
-#### Arduino product family
+### Arduino product family
 
 Any board with internet connectivity supported by one of the libraries below:
 
@@ -67,7 +67,7 @@ Any board with internet connectivity supported by one of the libraries below:
 - [GSM](https://github.com/arduino-libraries/GSM):
   - [Arduino GSM Shield](https://docs.arduino.cc/retired/getting-started-guides/ArduinoGSMShield)
 
-#### Zephyr boards
+### Zephyr boards
 
 The following boards are supported using the Zephyr RTOS:
 
