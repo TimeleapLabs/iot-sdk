@@ -47,25 +47,25 @@ and others.
 Any board with internet connectivity supported by one of the libraries below:
 
 - [WiFiNINA](https://github.com/arduino-libraries/WiFiNINA):
-  Arduino MKR WiFi 1010,
-  Arduino MKR VIDOR 4000,
-  Arduino UNO WiFi Rev.2,
-  Arduino Nano 33 IoT,
-  Arduino Nano RP2040 Connect
+  - [Arduino MKR WiFi 1010](https://docs.arduino.cc/hardware/mkr-wifi-1010)
+  - [Arduino MKR VIDOR 4000](https://docs.arduino.cc/hardware/mkr-vidor-4000)
+  - [Arduino UNO WiFi Rev.2](https://docs.arduino.cc/hardware/uno-wifi-rev2)
+  - [Arduino Nano 33 IoT](https://docs.arduino.cc/hardware/nano-33-iot)
+  - [Arduino Nano RP2040 Connect](https://docs.arduino.cc/hardware/nano-rp2040-connect)
 - [WiFi101](https://github.com/arduino-libraries/WiFi101):
-  Arduino MKR1000 WiFi,
-  Arduino/Genuino Wifi Shield 101
+  - [Arduino MKR1000 WiFi](https://docs.arduino.cc/hardware/mkr-1000-wifi)
+  - [Arduino/Genuino Wifi Shield 101](https://docs.arduino.cc/retired/getting-started-guides/ArduinoWiFiShield101)
 - [Ethernet](https://github.com/arduino-libraries/Ethernet):
-  Arduino Ethernet Board,
-  Arduino Ethernet Shield
+  - [Arduino Ethernet Board](https://docs.arduino.cc/retired/boards/arduino-ethernet-rev3-without-poe)
+  - [Arduino Ethernet Shield](https://docs.arduino.cc/retired/getting-started-guides/ArduinoEthernetShield)
 - [MKRGSM](https://github.com/arduino-libraries/MKRGSM):
-  Arduino MKR GSM 1400
+  - [Arduino MKR GSM 1400](https://docs.arduino.cc/hardware/mkr-gsm-1400)
 - [MKRNB](https://github.com/arduino-libraries/MKRNB):
-  Arduino MKR NB 1500
+  - [Arduino MKR NB 1500](https://docs.arduino.cc/hardware/mkr-nb-1500)
 - [WiFi](https://github.com/arduino-libraries/WiFi):
-  Arduino WiFi Shield
+  - [Arduino WiFi Shield](https://docs.arduino.cc/retired/getting-started-guides/ArduinoWiFiShield)
 - [GSM](https://github.com/arduino-libraries/GSM):
-  Arduino GSM Shield
+  - [Arduino GSM Shield](https://docs.arduino.cc/retired/getting-started-guides/ArduinoGSMShield)
 
 #### Zephyr boards
 
