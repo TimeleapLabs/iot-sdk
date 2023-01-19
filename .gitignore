@@ -1,2 +1,14 @@
+# os
 .DS_Store
 
+# editors
+.vscode
+*.swp
+*~
+
+# python
+.venv
+__pycache__/
+
+# build
+build*
