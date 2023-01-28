@@ -115,6 +115,10 @@ String blockchainToString(Blockchain blockchain) {
     return "aurora-testnet";
   case AuroraMainnet:
     return "aurora-mainnet";
+  case BitgertTestnet:
+    return "bitgert-testnet";
+  case BitgertMainnet:
+    return "bitgert-mainnet";
   default:
     return "";
   }

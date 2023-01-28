@@ -31,7 +31,9 @@ enum Blockchain {
   PolygonMumbai,
   PolygonMainnet,
   AuroraTestnet,
-  AuroraMainnet
+  AuroraMainnet,
+  BitgertTestnet,
+  BitgertMainnet
 };
 
 class MQL {
