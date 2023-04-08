@@ -33,7 +33,9 @@ enum Blockchain {
   AuroraTestnet,
   AuroraMainnet,
   BitgertTestnet,
-  BitgertMainnet
+  BitgertMainnet,
+  ArbitrumGoerli,
+  ArbitrumMainnet,
 };
 
 class MQL {

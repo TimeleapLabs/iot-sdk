@@ -103,6 +103,10 @@ String blockchainToString(Blockchain blockchain) {
     return "ethereum-goerli";
   case EthereumMainnet:
     return "ethereum-mainnet";
+  case ArbitrumGoerli:
+    return "arbitrum-goerli";
+  case ArbitrumMainnet:
+    return "arbitrum-mainnet";
   case AvalancheTestnet:
     return "avalanche-testnet";
   case AvalancheMainnet:
